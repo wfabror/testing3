@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.21.0/firebase-app.js';
+=======
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.21.0/firebase-app.js'
+
+>>>>>>> 8b6d6d67999b2873dee7b5e30fdb4b6f7b4c3432
 import { getFirestore } from 'https://www.gstatic.com/firebasejs/9.21.0/firebase-firestore.js'
 
 // TODO: Replace the following with your app's Firebase project configuration
@@ -16,8 +21,8 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const database = getFirestore(app);
 
-console.log(app);
 
+     
 const audio = (() => {
     var instance = undefined;
 
@@ -91,7 +96,7 @@ const timer = () => {
 // firebase.initialization(firebaseConfig);
 
 
-const buka = async () => {
+export const buka = async () => {
     document.getElementById('loading').style.display = 'none';
     document.getElementById('tombol-musik').style.display = 'block';
     audio.play();
@@ -438,6 +443,7 @@ const ucapan = async () => {
     await fetch(document.querySelector('body').getAttribute('data-url') + `/api/comment?per=${pagination.getPer()}&next=${pagination.getNext()}`, REQ)
         .then((res) => res.json())
         .then((res) => {
+            console.log(res)
             if (res.code == 200) {
                 UCAPAN.innerHTML = null;
                 res.data.forEach((data) => UCAPAN.appendChild(renderCard(data)));
@@ -501,41 +507,46 @@ const login = async () => {
 
 
 
-// const kirimUcapan = async () => {
-//     let nama = document.getElementById('formnama').value;
-//     let hadir = document.getElementById('hadiran').value;
-//     let komentar = document.getElementById('formpesan').value;
+ const kirimUcapan = async () => {
+     let nama = document.getElementById('formnama').value;
+     let hadir = document.getElementById('hadiran').value;
+     let komentar = document.getElementById('formpesan').value;
 
-//     if (nama.length == 0) {
-//         alert('Nama tidak boleh kosong!');
-//         return;
-//     }
-//     if (nama.length >= 35) {
-//         alert('Panjang nama maksimal 35 karakter');
-//         return;
-//     }
-//     if (hadir == 0) {
-//         alert('Silahkan pilih kehadiran');
-//         return;
-//     }
+     if (nama.length == 0) {
+         alert('Nama tidak boleh kosong!');
+         return;
+     }
+     if (nama.length >= 35) {
+         alert('Panjang nama maksimal 35 karakter');
+         return;
+     }
+     if (hadir == 0) {
+         alert('Silahkan pilih kehadiran');
+         return;
+     }
 
-//     document.getElementById('kirim') = true;
-//     let tmp = document.getElementById('kirim').innerHTML;
-//     document.getElementById('kirim').innerHTML = `<span class="spinner-border spinner-border-sm me-1"></span>Loading...`;
+     {{/*  document.getElementById('kirim') = true;  */}}
+     let tmp = document.getElementById('kirim').innerHTML;
+     document.getElementById('kirim').innerHTML = `<span class="spinner-border spinner-border-sm me-1"></span>Loading...`;
 
-//     function sendUcapan() {
-//         let data = {
-//             nama: nama,
-//             hadir: hadir == 1,
-//             komentar: komentar
-//         }
-//         console.log(data);
-//     }
-//     console.log(sendUcapan());
-// };
+     function sendUcapan() {
+         let data = {
+             nama: nama,
+             hadir: hadir == 1,
+             komentar: komentar
+         }
+         console.log(data);
+     }
+     console.log(sendUcapan());
+ };
 
+<<<<<<< HEAD
 const kirim = async () => {
     firebase.initialization(firebaseConfig);
+=======
+export const kirim = async () => {
+    
+>>>>>>> 8b6d6d67999b2873dee7b5e30fdb4b6f7b4c3432
     let nama = document.getElementById('formnama').value;
     let hadir = document.getElementById('hadiran').value;
     let komentar = document.getElementById('formpesan').value;
@@ -567,7 +578,11 @@ const kirim = async () => {
         return;
     }
 
+<<<<<<< HEAD
     document.getElementById('kirim').disabled = true;
+=======
+    // document.getElementById('kirim').disabled = true;
+>>>>>>> 8b6d6d67999b2873dee7b5e30fdb4b6f7b4c3432
     let tmp = document.getElementById('kirim').innerHTML;
     document.getElementById('kirim').innerHTML = `<span class="spinner-border spinner-border-sm me-1"></span>Loading...`;
 
