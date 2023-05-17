@@ -17,8 +17,8 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const database = getFirestore(app);
 
-console.log(app);
 
+     
 const audio = (() => {
     var instance = undefined;
 
@@ -92,7 +92,7 @@ const timer = () => {
 // firebase.initialization(firebaseConfig);
 
 
-const buka = async () => {
+export const buka = async () => {
     document.getElementById('loading').style.display = 'none';
     document.getElementById('tombol-musik').style.display = 'block';
     audio.play();
@@ -439,6 +439,7 @@ const ucapan = async () => {
     await fetch(document.querySelector('body').getAttribute('data-url') + `/api/comment?per=${pagination.getPer()}&next=${pagination.getNext()}`, REQ)
         .then((res) => res.json())
         .then((res) => {
+            console.log(res)
             if (res.code == 200) {
                 UCAPAN.innerHTML = null;
                 res.data.forEach((data) => UCAPAN.appendChild(renderCard(data)));
@@ -502,125 +503,125 @@ const login = async () => {
 
 
 
-// const kirimUcapan = async () => {
-//     let nama = document.getElementById('formnama').value;
-//     let hadir = document.getElementById('hadiran').value;
-//     let komentar = document.getElementById('formpesan').value;
+ const kirimUcapan = async () => {
+     let nama = document.getElementById('formnama').value;
+     let hadir = document.getElementById('hadiran').value;
+     let komentar = document.getElementById('formpesan').value;
 
-//     if (nama.length == 0) {
-//         alert('Nama tidak boleh kosong!');
-//         return;
-//     }
-//     if (nama.length >= 35) {
-//         alert('Panjang nama maksimal 35 karakter');
-//         return;
-//     }
-//     if (hadir == 0) {
-//         alert('Silahkan pilih kehadiran');
-//         return;
-//     }
+     if (nama.length == 0) {
+         alert('Nama tidak boleh kosong!');
+         return;
+     }
+     if (nama.length >= 35) {
+         alert('Panjang nama maksimal 35 karakter');
+         return;
+     }
+     if (hadir == 0) {
+         alert('Silahkan pilih kehadiran');
+         return;
+     }
 
-//     document.getElementById('kirim') = true;
-//     let tmp = document.getElementById('kirim').innerHTML;
-//     document.getElementById('kirim').innerHTML = `<span class="spinner-border spinner-border-sm me-1"></span>Loading...`;
+     {{/*  document.getElementById('kirim') = true;  */}}
+     let tmp = document.getElementById('kirim').innerHTML;
+     document.getElementById('kirim').innerHTML = `<span class="spinner-border spinner-border-sm me-1"></span>Loading...`;
 
-//     function sendUcapan() {
-//         let data = {
-//             nama: nama,
-//             hadir: hadir == 1,
-//             komentar: komentar
-//         }
-//         console.log(data);
-//     }
-//     console.log(sendUcapan());
-// };
+     function sendUcapan() {
+         let data = {
+             nama: nama,
+             hadir: hadir == 1,
+             komentar: komentar
+         }
+         console.log(data);
+     }
+     console.log(sendUcapan());
+ };
 
-// const kirim = async () => {
-//     firebase.initialization(firebaseConfig);
-//     let nama = document.getElementById('formnama').value;
-//     let hadir = document.getElementById('hadiran').value;
-//     let komentar = document.getElementById('formpesan').value;
-//     let token = localStorage.getItem('token') ?? '';
+export const kirim = async () => {
+    
+    let nama = document.getElementById('formnama').value;
+    let hadir = document.getElementById('hadiran').value;
+    let komentar = document.getElementById('formpesan').value;
+    let token = localStorage.getItem('token') ?? '';
 
-//     if (token.length == 0) {
-//         alert('Terdapat kesalahan, token kosong !');
-//         window.location.reload();
-//         return;
-//     }
+    if (token.length == 0) {
+        alert('Terdapat kesalahan, token kosong !');
+        window.location.reload();
+        return;
+    }
 
-//     if (nama.length == 0) {
-//         alert('nama tidak boleh kosong');
-//         return;
-//     }
+    if (nama.length == 0) {
+        alert('nama tidak boleh kosong');
+        return;
+    }
 
-//     if (nama.length >= 35) {
-//         alert('panjangan nama maksimal 35');
-//         return;
-//     }
+    if (nama.length >= 35) {
+        alert('panjangan nama maksimal 35');
+        return;
+    }
 
-//     if (hadir == 0) {
-//         alert('silahkan pilih kehadiran');
-//         return;
-//     }
+    if (hadir == 0) {
+        alert('silahkan pilih kehadiran');
+        return;
+    }
 
-//     if (komentar.length == 0) {
-//         alert('pesan tidak boleh kosong');
-//         return;
-//     }
+    if (komentar.length == 0) {
+        alert('pesan tidak boleh kosong');
+        return;
+    }
 
-//     document.getElementById('kirim').disabled = true;
-//     let tmp = document.getElementById('kirim').innerHTML;
-//     document.getElementById('kirim').innerHTML = `<span class="spinner-border spinner-border-sm me-1"></span>Loading...`;
+    // document.getElementById('kirim').disabled = true;
+    let tmp = document.getElementById('kirim').innerHTML;
+    document.getElementById('kirim').innerHTML = `<span class="spinner-border spinner-border-sm me-1"></span>Loading...`;
 
-//     const REQ = {
-//         method: 'POST',
-//         headers: {
-//             'Accept': 'application/json',
-//             'Content-Type': 'application/json',
-//             'Authorization': 'Bearer ' + token
-//         },
-//         body: JSON.stringify({
-//             nama: nama,
-//             hadir: hadir == 1,
-//             komentar: komentar
-//         })
-//     };
+    const REQ = {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        },
+        body: JSON.stringify({
+            nama: nama,
+            hadir: hadir == 1,
+            komentar: komentar
+        })
+    };
 
-//     function sendData() {
-//         let data = {
-//             nama: nama,
-//             hadir: hadir == 1,
-//             komentar: komentar
-//         }
-//         database.ref("tiyakokti").push(data)
-//     }
+    function sendData() {
+        let data = {
+            nama: nama,
+            hadir: hadir == 1,
+            komentar: komentar
+        }
+        database.ref("tiyakokti").push(data)
+    }
 
-//     await fetch(document.querySelector('body').getAttribute('data-url') + '/api/comment', REQ)
-//         .then((res) => res.json())
-//         .then((res) => {
-//             if (res.code == 201) {
-//                 resetForm();
-//                 pagination.reset();
-//             }
+    await fetch(document.querySelector('body').getAttribute('data-url') + '/api/comment', REQ)
+        .then((res) => res.json())
+        .then((res) => {
+            if (res.code == 201) {
+                resetForm();
+                pagination.reset();
+            }
 
-//             if (res.error.length != 0) {
-//                 if (res.error[0] == 'Expired token') {
-//                     alert('Terdapat kesalahan, token expired !');
-//                     window.location.reload();
-//                     return;
-//                 }
+            if (res.error.length != 0) {
+                if (res.error[0] == 'Expired token') {
+                    alert('Terdapat kesalahan, token expired !');
+                    window.location.reload();
+                    return;
+                }
 
-//                 alert(res.error[0]);
-//             }
-//         })
-//         .catch((err) => {
-//             resetForm();
-//             alert(err);
-//         });
+                alert(res.error[0]);
+            }
+        })
+        .catch((err) => {
+            resetForm();
+            alert(err);
+        });
 
-//     document.getElementById('kirim').disabled = false;
-//     document.getElementById('kirim').innerHTML = tmp;
-// };
+    document.getElementById('kirim').disabled = false;
+    document.getElementById('kirim').innerHTML = tmp;
+};
 
 window.addEventListener('load', () => {
     let modal = new bootstrap.Modal('#exampleModal');
