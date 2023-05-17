@@ -1,0 +1,141 @@
+*::-webkit-scrollbar {
+    width: 0.875rem;
+}
+
+*::-webkit-scrollbar-button {
+    display: none;
+}
+
+*::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+    border-radius: 0.5rem;
+    border: 0.25rem solid transparent;
+    background-clip: content-box;
+    background-color: #fafbf3;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+    background-color: #aaaaaa;
+}
+
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    overflow: overlay;
+    font-family: 'Josefin Sans', sans-serif;
+    padding: 0 !important;
+    background-image: url("moon.jpg");
+}
+
+iframe {
+    position: relative;
+    justify-content: center;
+    /* height: 80%; */
+    width: 80%;
+}
+
+.bg-modal {
+    background-image: url("../assets/images/forestfull.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: auto;
+    height: auto;
+}
+@media (min-width: 1200px)  { 
+  .bg-modal {
+    background-image: url("../assets/images/forestfull.jpg");
+    background-size: cover;
+    background-position: center;
+
+  } 
+}
+
+.home-aset {
+    /* width: 10vh;
+    height: 10vh;
+    position: relative;
+    overflow: hidden; */
+    /* height: 100px; */
+    background-image: url("../assets/images/forest1.png");
+    background-size: cover;
+    background-position: bottom;
+    background-repeat: no-repeat;
+    /* background-position-y: 100%; */
+}
+
+.font-estetik1 {
+    font-family: 'Lancelot', cursive !important;
+    color: #524949 !important;
+}
+
+.font-estetik2 {
+    font-family: Cinzel, Georgia, "Times New Roman", cursive !important;
+    color: #84a06b !important;
+}
+
+/* .home-style>img {
+    object-fit: cover;
+} */
+
+.cropper {
+    width: 14rem;
+    height: 14rem;
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.cropper>img {
+    display: inline;
+    margin: 0 auto;
+    height: auto;
+    width: 100%;
+}
+
+.croppers {
+    /* width: 14rem;
+    height: 14rem; */
+    width: 50%;
+    position: relative;
+    overflow: hidden;
+    border-radius: 0%;
+    -webkit-border-radius:;
+    -moz-border-radius:;
+    -ms-border-radius:;
+    -o-border-radius:;
+}
+
+.croppers>img {
+    display: inline;
+    margin: 0 auto;
+    height: auto;
+    width: 100%;
+}
+
+.btn-music {
+    position: fixed;
+    bottom: 9vh;
+    right: 2vh;
+    z-index: 1055;
+}
+
+.loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #f8f3ef;
+    z-index: 1055 !important;
+}
+
+.card-body {
+    overflow-wrap: break-word !important;
+}
