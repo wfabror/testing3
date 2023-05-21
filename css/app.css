@@ -65,7 +65,7 @@ iframe {
     /* height: 100px; */
     background-image: url("../assets/images/forest1.png");
     background-size: cover;
-    background-position: bottom;
+    background-position: center;
     background-repeat: no-repeat;
     /* background-position-y: 100%; */
 }
@@ -76,10 +76,33 @@ iframe {
 }
 
 .font-estetik2 {
-    font-family: Cinzel, Georgia, "Times New Roman", cursive !important;
-    color: #84a06b !important;
+    font-family: 'Cinzel Decorative', cursive !important;
+    /* font-family: "Rastaglion", sans-serif !important; */
+    color: #000000 !important;
+    font-weight: 400;
 }
 
+.font-estetik3 {
+    font-family: 'Gideon Roman', cursive !important;
+    /* font-family: "Rastaglion", sans-serif !important; */
+    color: #84a06b !important;
+    font-weight: 400;
+    margin-top: 256px;
+    margin-bottom: 24px;
+}
+
+.font-estetik4 {
+    font-family: 'Gideon Roman', cursive !important;
+    /* font-family: "Rastaglion", sans-serif !important; */
+    color: #84a06b !important;
+    font-weight: 400;
+}
+
+.font-estetik5 {
+    font-family: 'Ibarra Real Nova', serif !important;
+    /* font-family: "Rastaglion", sans-serif !important; */
+    color: #ffffff !important;
+}
 /* .home-style>img {
     object-fit: cover;
 } */
@@ -106,10 +129,10 @@ iframe {
     position: relative;
     overflow: hidden;
     border-radius: 0%;
-    -webkit-border-radius:;
-    -moz-border-radius:;
-    -ms-border-radius:;
-    -o-border-radius:;
+    -webkit-border-radius: 0%;
+    -moz-border-radius: 0%;
+    -ms-border-radius: 0%;
+    -o-border-radius: 0%;
 }
 
 .croppers>img {

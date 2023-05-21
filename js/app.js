@@ -1,25 +1,20 @@
-<<<<<<< HEAD
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.21.0/firebase-app.js';
-=======
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.21.0/firebase-app.js'
-
->>>>>>> 8b6d6d67999b2873dee7b5e30fdb4b6f7b4c3432
-import { getFirestore } from 'https://www.gstatic.com/firebasejs/9.21.0/firebase-firestore.js'
+// import { getAuth } from 'firebase/auth';
+import { getFirestore, collection, addDoc, doc, getDocs } from 'https://www.gstatic.com/firebasejs/9.21.0/firebase-firestore.js'
 
 // TODO: Replace the following with your app's Firebase project configuration
 const firebaseConfig = {
-    database: "https://commenttiyakokti-default-rtdb.firebaseio.com/",
-    apiKey: "AIzaSyDAQoLiGl9Jlx1I5JlFcpsVT3TpyZz_zs0",
-    authDomain: "commenttiyakokti.firebaseapp.com",
-    projectId: "commenttiyakokti",
-    storageBucket: "commenttiyakokti.appspot.com",
-    messagingSenderId: "992319197561",
-    appId: "1:992319197561:web:70c6eae2eb27827844dfa8",
-    measurementId: "G-MHFFM7M5BD"
+    apiKey: "AIzaSyBN1HUQF8iP6p5VvOHt3l32xSRtxn4LFfI",
+    authDomain: "testcomment1.firebaseapp.com",
+    databaseURL: "https://testcomment1-default-rtdb.firebaseio.com",
+    projectId: "testcomment1",
+    storageBucket: "testcomment1.appspot.com",
+    messagingSenderId: "587880311873",
+    appId: "1:587880311873:web:8facf3597dbc9fb816eac0"
 };
 
 const app = initializeApp(firebaseConfig);
-const database = getFirestore(app);
+const db = getFirestore(app);
 
 
      
@@ -117,8 +112,8 @@ const play = (btn) => {
     }
 };
 
-const resetForm = () => {
-    document.getElementById('kirim').style.display = 'block';
+export const resetForm = () => {
+    document.getElementById('kirimUcapan').style.display = 'block';
     document.getElementById('hadiran').style.display = 'block';
     document.getElementById('labelhadir').style.display = 'block';
     document.getElementById('batal').style.display = 'none';
@@ -306,21 +301,23 @@ const innerCard = (comment) => {
     return result;
 };
 
+{/* <small class="text-dark m-0 p-0" style="font-size: 0.75rem;">${data.created_at}</small> */}
+
+
 const renderCard = (data) => {
     const DIV = document.createElement('div');
     DIV.classList.add('mb-3');
     DIV.innerHTML = `
-    <div class="card-body bg-light shadow p-3 m-0 rounded-4" id="${data.uuid}">
+    <div class="card-body bg-light shadow p-3 m-0 rounded-4" id="${data.id}">
         <div class="d-flex flex-wrap justify-content-between align-items-center">
             <p class="text-dark text-truncate m-0 p-0" style="font-size: 0.95rem;">
                 <strong class="me-1">${escapeHtml(data.nama)}</strong>${data.hadir ? '<i class="fa-solid fa-circle-check text-success"></i>' : '<i class="fa-solid fa-circle-xmark text-danger"></i>'}
             </p>
-            <small class="text-dark m-0 p-0" style="font-size: 0.75rem;">${data.created_at}</small>
         </div>
         <hr class="text-dark my-1">
         <p class="text-dark mt-0 mb-1 mx-0 p-0" style="white-space: pre-line">${escapeHtml(data.komentar)}</p>
-        <button style="font-size: 0.8rem;" onclick="balasan(this)" data-uuid="${data.uuid}" class="btn btn-sm btn-outline-dark rounded-4 py-0">Balas</button>
-        ${innerCard(data.comment)}
+        <button style="font-size: 0.8rem;" onclick="balasan(this)" data-uuid="${data.id}" class="btn btn-sm btn-outline-dark rounded-4 py-0">Balas</button>
+        ${innerCard(data.komentar)}
     </div>`;
     return DIV;
 };
@@ -366,10 +363,12 @@ const pagination = (() => {
         let tmp = button.innerHTML;
         button.disabled = true;
         button.innerHTML = `<span class="spinner-border spinner-border-sm me-1"></span>Loading...`;
-        await ucapan();
+        await ucapin();
         button.disabled = false;
         button.innerHTML = tmp;
         document.getElementById('daftarucapan').scrollIntoView({ behavior: 'smooth' });
+        document.getElementById('daftarucapin').scrollIntoView({ behavior: 'smooth' });
+
     };
 
     return {
@@ -382,7 +381,8 @@ const pagination = (() => {
         reset: async () => {
             pageNow = 0;
             resultData = 0;
-            await ucapan();
+            // await ucapan();
+            await ucapin();
             document.getElementById('next').classList.remove('disabled');
             disabledPrevious();
         },
@@ -418,6 +418,25 @@ const pagination = (() => {
     };
 })();
 
+export const ucapin = async () => {
+    const UCAPIN = document.getElementById('daftarucapin');
+    UCAPIN.innerHTML = renderLoading(pagination.getPer());
+    const querySnapshot = await getDocs(collection(db, "tamu"));
+    querySnapshot.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+        console.log(doc.id, " => ", doc.data());
+        console.log("Status: ", doc.data().nama);
+        let data = [doc.data()];
+        console.log(data);
+        // UCAPIN.appendChild(renderCard(data));
+        if (doc.code == 200) {
+            console.log(doc.code());
+            UCAPIN.innerHTML = null;
+            doc.data.forEach((data) => UCAPIN.appendChild(renderCard(data)));
+        }
+        // return data;
+    });
+};
 
 
 const ucapan = async () => {
@@ -489,7 +508,8 @@ const login = async () => {
             if (res.code == 200) {
                 localStorage.removeItem('token');
                 localStorage.setItem('token', res.data.token);
-                ucapan();
+                // ucapan();
+                ucapin();
             }
 
             if (res.error.length != 0) {
@@ -507,7 +527,7 @@ const login = async () => {
 
 
 
- const kirimUcapan = async () => {
+export const kirimUcapan = async () => {
      let nama = document.getElementById('formnama').value;
      let hadir = document.getElementById('hadiran').value;
      let komentar = document.getElementById('formpesan').value;
@@ -526,27 +546,103 @@ const login = async () => {
      }
 
      {{/*  document.getElementById('kirim') = true;  */}}
-     let tmp = document.getElementById('kirim').innerHTML;
-     document.getElementById('kirim').innerHTML = `<span class="spinner-border spinner-border-sm me-1"></span>Loading...`;
+     let tmp = document.getElementById('kirimUcapan').innerHTML;
+     document.getElementById('kirimUcapan').innerHTML = `<span class="spinner-border spinner-border-sm me-1"></span>Loading...`;
 
-     function sendUcapan() {
-         let data = {
-             nama: nama,
-             hadir: hadir == 1,
-             komentar: komentar
-         }
-         console.log(data);
+     const REQ = {
+            nama: nama,
+            hadir: hadir == 1,
+            komentar: komentar
+        };
+     console.log(REQ);
+
+     const docRef = await addDoc(collection(db, "tamu"), REQ);
+     (console.log("Data Masuk: ", docRef.id));
+     resetForm();
+     pagination.reset();
+     try { (res) => {
+        if (res.code == 200) {
+            console.log(res);
+            resetForm();
+            pagination.reset();
+        }}
+     } catch (error) {
+        resetForm();
+        console.log(error);
+        alert(error);
      }
-     console.log(sendUcapan());
+        // .then ((response) => response.json())
+        // .then (console.log(res))
+        // .then ((req, res) => {
+        //     if (res.code == 201) {
+        //         resetForm();
+        //         pagination.reset();
+        //     }
+
+        //     if (res.error.length != 0) {
+        //         if (res.error[0] == 'expired token') {
+        //             alert('Kesalaha token !');
+        //             window.location.reload();
+        //             return;
+        //         }
+        //         alert (res.error[0]);
+        //     }
+        // })
+        // .catch((err) => {
+        //     resetForm()
+        //     alert(err);
+        // });
+    document.getElementById('kirimUcapan').disabled = false;
+    document.getElementById('kirimUcapan').innerHTML = tmp;
+
+    //  const sendUcapan = async () => {
+    //     try {
+    //         const docRef = await addDoc(collection(db, "tamu"), {
+    //             nama: nama,
+    //             hadir: hadir == 1,
+    //             komentar: komentar
+    //         });
+    //         console.log("Data masuk: ", docRef.id);
+    //     } catch (e) {
+    //         console.error("Data ga masuk: ", e);
+    //     }
+    //  }
+    // console.log(sendUcapan());
+    // const querySnapshot = await getDocs(collection(db, "tamu"));
+    // querySnapshot.forEach((doc) => {
+    //     try {
+    //         (res) => {
+    //             if (res.code == 201) {
+    //                 resetForm();
+    //                 pagination.reset();
+    //             }
+    
+    //             if (res.error.length != 0) {
+    //                 if (res.error[0] == 'Expired token') {
+    //                     alert('Terdapat kesalahan, token expired !');
+    //                     window.location.reload();
+    //                     return;
+    //                 }
+    
+    //                 alert(res.error[0]);
+    //             }   
+    //         }
+    //     } catch (err) {
+    //         (err) => {
+    //             resetForm();
+    //             alert(err);
+    //         }
+    //     }
+    //     // doc.data() is never undefined for query doc snapshots
+    //     console.log(doc.id, " => ", doc.data());
+    // });
+    
+    // document.getElementById('kirim').disabled = false;
+    // document.getElementById('kirim').innerHTML = tmp;
  };
 
-<<<<<<< HEAD
-const kirim = async () => {
-    firebase.initialization(firebaseConfig);
-=======
 export const kirim = async () => {
     
->>>>>>> 8b6d6d67999b2873dee7b5e30fdb4b6f7b4c3432
     let nama = document.getElementById('formnama').value;
     let hadir = document.getElementById('hadiran').value;
     let komentar = document.getElementById('formpesan').value;
@@ -578,11 +674,7 @@ export const kirim = async () => {
         return;
     }
 
-<<<<<<< HEAD
-    document.getElementById('kirim').disabled = true;
-=======
     // document.getElementById('kirim').disabled = true;
->>>>>>> 8b6d6d67999b2873dee7b5e30fdb4b6f7b4c3432
     let tmp = document.getElementById('kirim').innerHTML;
     document.getElementById('kirim').innerHTML = `<span class="spinner-border spinner-border-sm me-1"></span>Loading...`;
 
@@ -599,15 +691,6 @@ export const kirim = async () => {
             komentar: komentar
         })
     };
-
-    function sendData() {
-        let data = {
-            nama: nama,
-            hadir: hadir == 1,
-            komentar: komentar
-        }
-        database.ref("tiyakokti").push(data)
-    }
 
     await fetch(document.querySelector('body').getAttribute('data-url') + '/api/comment', REQ)
         .then((res) => res.json())
