@@ -119,9 +119,9 @@ export const resetForm = () => {
     document.getElementById('hadiran').style.display = 'block';
     document.getElementById('labelhadir').style.display = 'block';
     document.getElementById('batal').style.display = 'none';
-    document.getElementById('kirimbalasan').style.display = 'none';
-    document.getElementById('idbalasan').value = null;
-    document.getElementById('balasan').innerHTML = null;
+    // document.getElementById('kirimbalasan').style.display = 'none';
+    // document.getElementById('idbalasan').value = null;
+    // document.getElementById('balasan').innerHTML = null;
     document.getElementById('formnama').value = null;
     document.getElementById('hadiran').value = 0;
     document.getElementById('formpesan').value = null;
