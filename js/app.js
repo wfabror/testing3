@@ -311,7 +311,6 @@ export const ucapkan = async () => {
 
     // const dataTamu = await response.json()
     theDatas = dataTamu.docs.map((f) => f.data())
-    console.log(theDatas)
 }
 // ucapkan()
 
@@ -333,12 +332,8 @@ const renderData = async (page = 1) => {
 
     }
 
-    console.log('Halaman ', page);
-
     let UCAPKAN = document.getElementById('daftarucapkan');
-    // UCAPKAN.innerHTML = renderLoading(theDatas)
 
-    // let personaliaTamu = 
     theDatas.filter((row, index) => {
         UCAPKAN.innerHTML = null;
 
@@ -348,7 +343,6 @@ const renderData = async (page = 1) => {
         if (index >= start && index < end) return true;
     })
     .forEach((f) => UCAPKAN.appendChild(rindirCard(f)))
-    // console.log(personaliaTamu[0].nama);
 
     
 }
@@ -359,7 +353,6 @@ function previousPage () {
         currentPage--;
         renderData(currentPage)
     }
-        console.log("Ini adalah ", currentPage);
 }
 
 function nextPage () {
@@ -396,7 +389,6 @@ export const kirimUcapan = async () => {
          return;
      }
 
-     {{/*  document.getElementById('kirim') = true;  */}}
      let tmp = document.getElementById('kirimUcapan').innerHTML;
      document.getElementById('kirimUcapan').innerHTML = `<span class="spinner-border spinner-border-sm me-1"></span>Loading...`;
 
@@ -405,24 +397,11 @@ export const kirimUcapan = async () => {
             hadir: hadir == 1,
             komentar: komentar
         };
-     console.log(REQ);
 
      const docRef = await addDoc(collection(db, "tamu"), REQ);
-     (console.log("Data Masuk: ", docRef.id));
      resetForm();
      pagination.reset();
      document.location.reload();
-     try { (res) => {
-        if (res.code == 200) {
-            console.log(res);
-            resetForm();
-            pagination.reset();
-        }}
-     } catch (error) {
-        resetForm();
-        console.log(error);
-        alert(error);
-     }
     document.getElementById('kirimUcapan').disabled = false;
     document.getElementById('kirimUcapan').innerHTML = tmp;
 

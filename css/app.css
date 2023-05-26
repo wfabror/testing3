@@ -31,7 +31,6 @@ body {
     overflow: overlay;
     font-family: 'Josefin Sans', sans-serif;
     padding: 0 !important;
-    background-image: url("moon.jpg");
 }
 
 iframe {
